@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OUTA - Visual Page Builder (Beta)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0a0a1a;
+            color: #e0e0e0;
+        }
+
+        .hero-bg {
+            position: relative;
+            background-color: black;
+            background-image: url('https://20essentials.github.io/project-000-128/assets/n1.avif');
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            mix-blend-mode: overlay;
+            animation: moveInner 10s ease infinite alternate;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes moveInner {
+            0% { background-color: #f0f; }
+            25% { background-color: #0f0; }
+            50% { background-color: #00f; }
+            75% { background-color: #f00; }
+            100% { background-color: #ff0; }
+        }
+        
+        .feature-card {
+            background: rgba(26, 26, 78, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.7);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-start {
+            background: #6366f1;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+        .btn-start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.8);
+        }
+
+        /* --- New Contact Form Styles --- */
+        #contact {
+            padding: 4rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            background-color: black;
+            background-image: url('https://20essentials.github.io/project-000-128/assets/n1.avif');
+            background-position: center;
+            background-size: cover;
+        }
+        
+        #contact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            mix-blend-mode: overlay;
+            animation: moveInner 10s ease infinite alternate;
+        }
+
+        #contact .container {
+            max-width: 700px;
+            width: 100%;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        #contact .screen {
+            position: relative;
+            background: #2d3748; /* Darker blue-gray */
+            border-radius: 15px;
+        }
+        
+        @keyframes animateGlow {
+           0%{background-position:0% 50%}
+           50%{background-position:100% 50%}
+           100%{background-position:0% 50%}
+        }
+
+        #contact .screen::after {
+            content: "";
+            position: absolute;
+            top: 35px;
+            left: 0;
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+            transform: scale(0.85);
+            filter: blur(45px);
+            background: linear-gradient(270deg, #0fffc1, #7e0fff);
+            background-size: 200% 200%;
+            animation: animateGlow 10s ease infinite;
+        }
+
+
+        #contact .screen-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: #4a5568; /* Slightly lighter header */
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        #contact .screen-header-left {
+            margin-right: auto;
+        }
+
+        #contact .screen-header-button {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 3px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        #contact .screen-header-button.close { background: #ed64a6; } /* Pink */
+        #contact .screen-header-button.maximize { background: #f6e05e; } /* Yellow */
+        #contact .screen-header-button.minimize { background: #68d391; } /* Green */
+
+        #contact .screen-header-right { display: flex; }
+        #contact .screen-header-ellipsis {
+            width: 3px;
+            height: 3px;
+            margin-left: 2px;
+            border-radius: 8px;
+            background: #999;
+        }
+
+        #contact .screen-body { display: flex; }
+        #contact .screen-body-item { flex: 1; padding: 50px; }
+        #contact .screen-body-item.left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contact .app-title {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            font-size: 26px;
+            font-weight: 900;
+            animation: textColor 10s ease infinite;
+        }
+
+        @keyframes textColor {
+            0% { color: #7e0fff; }
+            50% { color: #0fffc1; }
+            100% { color: #7e0fff; }
+        }
+        
+        @keyframes textColorAfter {
+            0% { background: #7e0fff; }
+            50% { background: #0fffc1; }
+            100% { background: #7e0fff; }
+        }
+
+        #contact .app-title:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 25px;
+            height: 4px;
+            animation: textColorAfter 10s ease infinite;
+        }
+
+        #contact .app-contact {
+            margin-top: auto;
+            font-size: 8px;
+            color: #a0aec0; /* Lighter gray */
+        }
+
+        #contact .app-form-group { margin-bottom: 15px; }
+        #contact .app-form-group.message { margin-top: 40px; }
+        #contact .app-form-group.buttons { margin-bottom: 0; text-align: right; }
+
+        #contact .app-form-control {
+            width: 100%;
+            padding: 10px 0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid #666;
+            color: #ddd;
+            font-size: 14px;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        #contact .app-form-control::placeholder { color: #a0aec0; }
+        #contact .app-form-control:focus { border-bottom-color: #ddd; }
+        #contact .app-form-button {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            padding: 0.5rem;
+        }
+        #contact .app-form-button:hover { color: #829dff; }
+
+        @media screen and (max-width: 520px) {
+            #contact .screen-body { flex-direction: column; }
+            #contact .screen-body-item.left { margin-bottom: 30px; }
+            #contact .app-title { flex-direction: row; }
+            #contact .app-title span { margin-right: 12px; }
+            #contact .app-title:after { display: none; }
+        }
+
+        @media screen and (max-width: 600px) {
+            #contact .screen-body { padding: 40px; }
+            #contact .screen-body-item { padding: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <main class="hero-bg">
+        <div class="content-wrapper flex flex-col items-center justify-center min-h-screen p-6 text-center">
+            <header class="mb-8">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-6xl md:text-8xl font-black tracking-tighter">OUTA</h1>
+                    <span class="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full -translate-y-4">BETA</span>
+                </div>
+            </header>
+            
+            <p class="text-lg md:text-xl max-w-2xl text-gray-300 mb-8">
+                Welcome to OUTA, the visual page builder for modern e-commerce. Go from idea to a high-converting landing page in minutes. No code required.
+            </p>
+            
+            <a href="index.html" class="btn-start inline-flex items-center gap-2">
+                Start Building for Free
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <section id="features" class="content-wrapper py-20 px-6 bg-[#0a0a1a]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold">All The Features You Need</h2>
+                <p class="text-lg text-gray-400 mt-2">Built to be powerful, yet simple to use.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="layout-template" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Visual Editor</h3>
+                    <p class="text-gray-400">Drag, drop, and customize sections in a live preview. See your changes instantly as you build your perfect page.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="box" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Rich Components</h3>
+                    <p class="text-gray-400">Start with pre-built sections like Product Pages, Video Promos, Welcome Bars, and Image Galleries.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="code" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Custom Liquid Code</h3>
+                    <p class="text-gray-400">Power users can add their own custom Liquid sections for unlimited flexibility and control.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="smartphone" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Responsive Preview</h3>
+                    <p class="text-gray-400">Instantly switch between desktop and mobile previews to ensure your page looks great on all devices.</p>
+                </div>
+                 <!-- Feature 5 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="settings-2" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Powerful Integrations</h3>
+                    <p class="text-gray-400">Connect your pages with Google Sheets, Facebook Pixel, and TikTok Pixel with a simple copy-paste.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="feature-card rounded-lg p-6">
+                    <i data-lucide="download" class="w-10 h-10 mb-4 text-indigo-400"></i>
+                    <h3 class="text-xl font-bold mb-2">Easy Export</h3>
+                    <p class="text-gray-400">When you're done, get clean and complete HTML, CSS, and JS to host anywhere on the web.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-header-left">
+                        <div class="screen-header-button close"></div>
+                        <div class="screen-header-button maximize"></div>
+                        <div class="screen-header-button minimize"></div>
+                    </div>
+                    <div class="screen-header-right">
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                    </div>
+                </div>
+                <div class="screen-body">
+                    <div class="screen-body-item left">
+                        <div class="app-title">
+                            <span>CONTACT</span>
+                            <span>US</span>
+                        </div>
+                        <div class="app-contact">
+                            OUTA is in beta. We'd love to hear your feedback!<br>
+                            <a href="mailto:feedback@outa-builder.com" class="hover:underline">feedback@outa-builder.com</a>
+                        </div>
+                    </div>
+                    <div class="screen-body-item">
+                        <div class="app-form">
+                            <div class="app-form-group">
+                                <input class="app-form-control" placeholder="NAME">
+                            </div>
+                            <div class="app-form-group">
+                                <input class="app-form-control" placeholder="EMAIL">
+                            </div>
+                            <div class="app-form-group message">
+                                <input class="app-form-control" placeholder="MESSAGE">
+                            </div>
+                            <div class="app-form-group buttons">
+                                <button class="app-form-button">CANCEL</button>
+                                <button class="app-form-button">SEND</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-sm text-indigo-100 mt-8 relative z-10">&copy; 2025 OUTA. All Rights Reserved.</div>
+    </section>
+
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
